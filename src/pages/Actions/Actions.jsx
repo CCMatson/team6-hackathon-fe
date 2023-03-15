@@ -8,18 +8,20 @@ function Actions(props) {
   const user = props.user
   const [actions, setActions] = useState([])
   console.log(props, 'props')
-
+  console.log(props.profile.plots, 'plots')
   const handleAddAction = async (actionData, id) => {
     const newAction = await actionService.create(actionData, id)
     setActions([newAction, ...actions])
+    console.log(newAction, 'newAction')
   }
-
+  
   const [profile, setProfile] = useState({})
-
+  
   useEffect(() => {
     const fetchProfile = async () => {
       const profileData = await profileService.getProfile(user.profile)
       setProfile(profileData)
+      console.log('user profile', user.profile)
     }
     fetchProfile()
   }, [user])

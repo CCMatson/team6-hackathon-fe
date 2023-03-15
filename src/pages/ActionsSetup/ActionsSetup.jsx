@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 // Create Actions From
 function ActionsSetup(props) {
+  console.log(props, 'propsInActionSetUp')
   const navigate = useNavigate()
   const [form, setForm] = useState({
     name: '',
@@ -17,8 +18,8 @@ function ActionsSetup(props) {
 
   const handleSubmit = ({ e }) => {
     e.preventDefault()
-    console.log(form, 'form')
     props.handleAddAction(form, props.plot._id)
+    console.log()
     navigate('actions')
   }
 
