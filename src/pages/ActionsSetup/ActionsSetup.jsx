@@ -1,9 +1,11 @@
 import styles from "./ActionSetup.module.css"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import * as actionService from '../../services/actionService'
 
 // Create Actions From
 function ActionsSetup(props) {
+  console.log(props, 'propsAS')
   const navigate = useNavigate()
   const [form, setForm] = useState({
     name: '',
@@ -13,13 +15,16 @@ function ActionsSetup(props) {
     setForm({ ...form, [target.name]: target.value })
     console.log(target.name, 'name')
     console.log(target.value, 'value')
+    console.log(form, 'form')
   }
 
-  const handleSubmit = ({ e }) => {
-    e.preventDefault()
+  const handleSubmit = async(e) => {
+    console.log('handleSubmit works')
     console.log(form, 'form')
-    props.handleAddAction(form, props.plot._id)
-    navigate('actions')
+    e.preventDefault()
+    await actionService.create(form, props.plot._id)
+    // props.handleAddAction(form, props.plot._id)
+    navigate('/actions')
   }
 
   return (
@@ -43,7 +48,7 @@ function ActionsSetup(props) {
           </input>
         </div>
 
-        <button type="submit">Save</button>
+        <button>Save</button>
       </form>
       {props.plot.actions.map((action) => {
         return (

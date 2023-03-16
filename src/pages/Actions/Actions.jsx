@@ -4,16 +4,18 @@ import ActionsSetup from "../ActionsSetup/ActionsSetup"
 import { useState, useEffect } from "react"
 import * as profileService from '../../services/profileService'
 
-function Actions(props) {
-  const user = props.user
+function Actions({user}) {
+  // const user = props.user
+  console.log(user, 'props.user')
   const [actions, setActions] = useState([])
-  console.log(props, 'props')
 
-  const handleAddAction = async (actionData, id) => {
-    const newAction = await actionService.create(actionData, id)
-    setActions([newAction, ...actions])
-  }
 
+  
+  // const handleAddAction = async (actionData, id) => {
+  //   const newAction = await actionService.create(actionData, id)
+  //   setActions([newAction, ...actions])
+  // }
+  
   const [profile, setProfile] = useState({})
 
   useEffect(() => {
@@ -32,12 +34,14 @@ function Actions(props) {
   //   fetchAllActions()
   // }, [])
 
+
   return (
     <div>
       {profile.plots &&
       profile.plots.map((plot) => {
         return (
-        <ActionsSetup key={plot._id} handleAddAction={handleAddAction} plot={plot}/>
+          <ActionsSetup key={plot._id} plot={plot}/>
+        // <ActionsSetup key={plot._id} handleAddAction={handleAddAction} plot={plot}/>
         )
       }
       )}
